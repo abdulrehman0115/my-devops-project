@@ -23,6 +23,10 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Rest API routes
 app.use('/api/carts', carts);
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Express server listening on port 3000');
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

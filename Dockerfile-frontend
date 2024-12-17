@@ -1,8 +1,14 @@
 # Frontend Dockerfile
 FROM node:16
+
 WORKDIR /app
+
 COPY package.json .
 RUN npm install
+
 COPY . .
+
 EXPOSE 3000
-CMD ["npm", "start"]
+
+# Bind React to 0.0.0.0 to make it accessible externally
+CMD ["npm", "start", "--host", "0.0.0.0"]
