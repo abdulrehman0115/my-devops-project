@@ -13,7 +13,7 @@ app.use(responseTime());
 app.use(logger('dev'));
 
 // Sets up the response object in routes to contain a body property with an object of what is parsed from a JSON body request payload
-app.use(express.json())
+app.use(express.json());
 
 // Serving up of React app HTML with its static content - images, CSS files, and JavaScript files
 app.get('/', function (req, res) {
@@ -23,10 +23,12 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 // Rest API routes
 app.use('/api/carts', carts);
-app.listen(3000, '0.0.0.0', () => {
-  console.log('Express server listening on port 3000');
-});
 
+// Set the port dynamically via environment variable or default to 5000
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Express server listening on port ${PORT}`);
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -55,10 +57,11 @@ app.use(function (err, req, res, next) { // eslint-disable-line no-unused-vars
     res.status(500).json({ message: err.toString(), error: {} });
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', PORT);
 
 var server = app.listen(app.get('port'), function () {
   console.log('Express server listening on port ' + server.address().port);
 });
 
 module.exports = server;
+
